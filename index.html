@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>האקדמיה הראשונה להפרשת חלה בישראל — מחוברות לחיים של הרבנית שרית גז</title>
+    <meta name="description" content="גלי את המשמעות הרוחנית והעוצמה הנשית של מצוות הפרשת חלה. האקדמיה הראשונה מסוגה בישראל מציעה חיבור אותנטי למסורת היהודית דרך לימוד מעמיק והדרכה מקצועית.">
+    <meta name="keywords" content="הפרשת חלה, מצוות נשים, חינוך דתי לנשים, רוחניות יהודית, הרבנית שרית גז">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '66d292fa-f5eb-47b8-a511-7087f84e6ab9',
+    apiUrl: 'https://qaapi.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="האקדמיה הראשונה להפרשת חלה בישראל — מחוברות לחיים של הרבנית שרית גז">
+  <meta property="og:description" content="גלי את המשמעות הרוחנית והעוצמה הנשית של מצוות הפרשת חלה. האקדמיה הראשונה מסוגה בישראל מציעה חיבור אותנטי למסורת היהודית דרך לימוד מעמיק והדרכה מקצועית.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="האקדמיה הראשונה להפרשת חלה בישראל — מחוברות לחיים של הרבנית שרית גז">
+  <meta name="twitter:description" content="גלי את המשמעות הרוחנית והעוצמה הנשית של מצוות הפרשת חלה. האקדמיה הראשונה מסוגה בישראל מציעה חיבור אותנטי למסורת היהודית דרך לימוד מעמיק והדרכה מקצועית.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="mobile-lang-menu-deployed-css">
+    @media (max-width: 768px) {
+      .lang-switcher,
+      .nav-cta-container .lang-switcher,
+      .nav-container .lang-switcher,
+      .navbar .lang-switcher,
+      .navbar .nav-cta-container .lang-switcher,
+      .nav-icons-left .lang-switcher,
+      .nav-ecommerce-icons .lang-switcher { display: none !important; }
+      .mobile-lang-menu { width: 100%; border-top: 1px solid rgba(128,128,128,0.2); padding: 8px 0 0 0; margin-top: 8px; }
+      .mobile-lang-toggle { display: flex !important; align-items: center; justify-content: space-between; width: 100%; padding: 12px 16px; background: none; border: none; cursor: pointer; font-size: 15px; color: inherit; font-family: inherit; }
+      .mobile-lang-toggle::after { content: ''; display: inline-block; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.3s ease; margin-left: 8px; }
+      .mobile-lang-toggle.expanded::after { transform: rotate(-135deg); }
+      .mobile-lang-options { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .mobile-lang-options.expanded { max-height: 300px; }
+      .mobile-lang-option { display: flex !important; align-items: center; gap: 10px; padding: 10px 24px; text-decoration: none; color: inherit; font-size: 14px; font-family: inherit; }
+      .mobile-lang-option:hover { background: rgba(128,128,128,0.1); }
+      .mobile-lang-option.active { font-weight: 600; opacity: 0.7; pointer-events: none; }
+      .mobile-lang-option img { width: 20px; height: 20px; border-radius: 50%; }
+    }
+    @media (min-width: 769px) {
+      .mobile-lang-menu { display: none !important; }
+    }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="תפריט">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  
+  <button class="phone-header-btn" aria-label="התקשר">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+  
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand"><a href="/" class="logo-link" aria-label="Home"><img src="/assets/logo.webp" alt="מחוברות לחיים של הרבנית שרית גז" class="logo"></a></div><ul class="nav-menu" id="navMenu"><li><a href="#content">תוכן</a></li><li><a href="#features">מאפיינים</a></li><li><a href="#testimonials">המלצות</a></li><li><a href="#faq">שאלות נפוצות</a></li><li><a href="#about">אודות</a></li></ul></div>
+    
+    
+    
+    <div class="nav-cta-container">
+      <a href="#contact" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '50%', 'important');
+          mobileToggle.style.setProperty('transform', 'translateY(-50%)', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '50%', 'important');
+          phoneBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu on button click - use newToggle now
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = this.querySelector('.hamburger-icon');
+      const closeIcon = this.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // === WHATSAPP BUTTON VISIBILITY FIX ===
+    // Ensure WhatsApp floating button is hidden on desktop and visible on mobile
+    // IMPORTANT: Only target the floating button by its class, NOT generic wa.me links
+    const handleWhatsAppVisibility = function() {
+      const whatsappBtn = document.querySelector('.whatsapp-float');
+      if (whatsappBtn) {
+        const isDesktop = window.innerWidth >= 769;
+        if (isDesktop) {
+          whatsappBtn.style.setProperty('display', 'none', 'important');
+          whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
+          whatsappBtn.style.setProperty('opacity', '0', 'important');
+          whatsappBtn.style.setProperty('pointer-events', 'none', 'important');
+          console.log('[WhatsApp] Button hidden on desktop');
+        } else {
+          whatsappBtn.style.removeProperty('display');
+          whatsappBtn.style.removeProperty('visibility');
+          whatsappBtn.style.removeProperty('opacity');
+          whatsappBtn.style.removeProperty('pointer-events');
+          console.log('[WhatsApp] Button visible on mobile');
+        }
+      }
+    };
+    
+    // Run on load
+    handleWhatsAppVisibility();
+    
+    // Run on resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleWhatsAppVisibility, 100);
+    });
+  });
+})();
+
+</script>
+  
+  <main>
+    <section id="hero" class="home-hero-section" data-layout-spec="Home-hero" data-hero-type="fullscreen-scrim">
+  <div class="home-hero-background">
+    <img data-hero-bg="true" data-placeholder="home-hero-bg" data-context="Warm, inviting image of Jewish woman performing the mitzvah of hafrashat challah (separating challah dough). Soft natural lighting in a modern Israeli kitchen, hands gently working with dough, spiritual and peaceful atmosphere. Focus on the sacred moment of connection to tradition. Warm tones, authentic Jewish home setting, feeling of joy and spiritual elevation." width="1920" height="1080" src="" alt="אישה מפרישה חלה במטבח ביתי חם ומזמין" class="home-hero-bg-image">
+  </div>
+  
+  <div class="home-hero-scrim"></div>
+  
+  <div class="home-hero-overlay-content">
+    <div class="home-hero-content-wrapper">
+      <h1 class="home-hero-headline">🥂מחוברות לחיים🥂</h1>
+      <h3 class="home-hero-subtitle">האקדמיה למפרישות חלה הראשונה בישראל | מעל 50,000 עוקבות כבר מכירות את האנרגיה – מוזמנת לבקר: | המחזור הבא מתחיל בעוד</h3>
+      <div class="home-hero-cta-group">
+        <a href="#contact" class="home-hero-cta-primary">הצטרפי למחזור הבא</a>
+        <a href="#about" class="home-hero-cta-secondary">גלי עוד על האקדמיה</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="content" class="home-content-section" data-layout-spec="Home-content">
+  <div class="home-content-container">
+    <div class="home-content-text-wrapper">
+      <h2 class="home-content-title">הסוד שיהפוך אותך למנחת<br>הפרשת חלה בלתי נשכחת</h2>
+      
+      <div class="home-content-intro">
+        <p>בואי ללמוד איך להפוך מצווה למופע רגשי חי</p>
+      </div>
+
+      <div class="home-content-highlight-box">
+        <svg data-no-icon-edit="true" aria-hidden="true" class="home-content-quote-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8C7.58172 8 4 11.5817 4 16C4 20.4183 7.58172 24 12 24C13.0609 24 14.0783 23.7951 15.0178 23.4214C14.3879 26.5114 11.8589 29 8.5 29C7.67157 29 7 29.6716 7 30.5C7 31.3284 7.67157 32 8.5 32C14.299 32 19 27.299 19 21.5V16C19 11.5817 15.4183 8 11 8H12ZM28 8C23.5817 8 20 11.5817 20 16C20 20.4183 23.5817 24 28 24C29.0609 24 30.0783 23.7951 31.0178 23.4214C30.3879 26.5114 27.8589 29 24.5 29C23.6716 29 23 29.6716 23 30.5C23 31.3284 23.6716 32 24.5 32C30.299 32 35 27.299 35 21.5V16C35 11.5817 31.4183 8 27 8H28Z" fill="currentColor"></path>
+        </svg>
+        <p class="home-content-highlight-text">את לא רק מנחה.<br>את מובילה רגשית.</p>
+      </div>
+
+      <div class="home-content-body">
+        <p>האם חלמת פעם אחת לעמוד מול קהל נשים, למגנט אותן אלייך ולראות איך הלבבות שלהן נפתחים?</p>
+        
+        <p>דמייני את עצמך עומדת מול 100 נשים שמשתוקקות למוצא פיך. במלוא הכריזמה שלך, את מצליחה לגעת בהן בצורה עמוקה – את גורמת להן להיפתח, להתפלל, לשמוח, לרקוד, לדמוע ולצחוק.</p>
+      </div>
+
+      <div class="home-content-image-wrapper">
+        <img data-placeholder="home-content-image-1" data-context="Warm, intimate photo of Jewish women at a challah separation ceremony, showing emotional connection and spiritual engagement. Women with head coverings (tichels/sheitels) standing together, hands raised in prayer or blessing, with soft natural lighting creating a sacred atmosphere. Focus on genuine emotion, tears of joy, and spiritual connection. Traditional Jewish setting with challah dough visible." width="800" height="500" src="" alt="נשים יהודיות בטקס הפרשת חלה רגשי ומחבר">
+      </div>
+
+      <div class="home-content-final">
+        <h3 class="home-content-subtitle">בהכשרה שלנו, את לא רק לומדת את טקס הפרשת חלה - את לומדת איך לנהל רגש.</h3>
+        
+        <p>בערב שאת תעבירי לא יהיה רגע דומם אחד; את תלמדי לנוע בחיות בין צחוק לדמעות, בין ריקוד לשקט, ובין סיפור לתפילה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="home-features-section" data-layout-spec="Home-features">
+  <div class="home-features-container">
+    <div class="home-features-header">
+      <h2 class="home-features-title">קורס עומק שמפתח אישיות,<br>בונה נוכחות ומוציא אותך להנחות בפועל</h2>
+      <p class="home-features-subtitle">זה לא קורס שמלמד איך נראה ערב. וזה לא אוסף כלים טכניים. זו הכשרה שמתחילה מבפנים,<br>ובונה אותך להיות אישה שמובילה ערב בביטחון, ברגש ובשליטה.</p>
+    </div>
+
+    <div class="home-features-stages">
+      <div class="home-features-stage">
+        <div class="home-features-stage-header">
+          <div class="home-features-stage-number">שלב 1</div>
+          <h3 class="home-features-stage-title">בניית האישיות והנוכחות</h3>
+          <p class="home-features-stage-subtitle">כאן מונח היסוד להכול</p>
+        </div>
+        <div class="home-features-stage-content">
+          <div class="home-features-stage-intro">
+            <svg data-element-type="icon" data-icon-type="svg" class="home-features-stage-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"></path>
+            </svg>
+            <p class="home-features-stage-description">לא לומדים רק מה לעשות. לומדים מי להיות כשעושים.</p>
+          </div>
+          <p class="home-features-stage-text">זה שלב שבו קורה שינוי פנימי, הרבה לפני שעומדים על במה.</p>
+          <img data-placeholder="home-features-image-1" data-context="Jewish woman learning and growing spiritually, studying Torah or Jewish texts in a warm, inviting setting with soft natural light, representing personal development and spiritual connection in religious education" width="600" height="400" src="" alt="אישה יהודייה לומדת ומתפתחת רוחנית" class="home-features-stage-image">
+          <ul class="home-features-list">
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>להבין מהי אישיות ואיך היא מתפתחת</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>לזהות את כוחות הנפש שמעצבים אותך</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>לבנות ביטחון פנימי שאינו תלוי באישור חיצוני</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>לעבוד עם הגוף, הקול והנשימה</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>לפתח שפת גוף שמשדרת אמת, רוגע וסמכות שקטה</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="home-features-stage">
+        <div class="home-features-stage-header">
+          <div class="home-features-stage-number">שלב 2</div>
+          <h3 class="home-features-stage-title">עמידה מול קהל</h3>
+          <p class="home-features-stage-subtitle">זה השלב שבו את מפסיקה לפחד להיראות</p>
+        </div>
+        <div class="home-features-stage-content">
+          <div class="home-features-stage-intro">
+            <svg data-element-type="icon" data-icon-type="svg" class="home-features-stage-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"></path>
+            </svg>
+            <p class="home-features-stage-description">כאן את לומדת מה קורה באמת מול קהל</p>
+          </div>
+          <img data-placeholder="home-features-image-2" data-context="Confident Jewish woman teaching or presenting to a group of women in a warm, supportive educational setting, representing public speaking and leadership in Jewish education" width="600" height="400" src="" alt="אישה מלמדת מול קהל" class="home-features-stage-image">
+          <ul class="home-features-list">
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>להבין פחד קהל לעומק, פסיכולוגית ורגשית</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>להפוך פחד לאנרגיה ולא למעצור</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>לפתח ביטחון קבוע מול קהל</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>להשתמש בהומור ושחרור כדי לפתוח לבבות</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>ללמוד להרים קהל לריקוד ולהוביל רגעי שיא</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="home-features-stage">
+        <div class="home-features-stage-header">
+          <div class="home-features-stage-number">שלב 3</div>
+          <h3 class="home-features-stage-title">הנחיית ערב מתחילתו ועד סופו</h3>
+          <p class="home-features-stage-subtitle">התהליך המלא מסגירה ועד הנהגה</p>
+        </div>
+        <div class="home-features-stage-content">
+          <div class="home-features-stage-intro">
+            <svg data-element-type="icon" data-icon-type="svg" class="home-features-stage-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"></path>
+            </svg>
+            <p class="home-features-stage-description">כאן את לומדת את כל התהליך, מסגירת ערב מול מתעניינת ועד להנהיג ערב עוצמתי</p>
+          </div>
+          <img data-placeholder="home-features-image-3" data-context="Jewish woman facilitating a challah separation ceremony with a group, warm candlelight, hands working with dough, representing the complete process of leading a hafrashat challah event" width="600" height="400" src="" alt="הנחיית ערב הפרשת חלה" class="home-features-stage-image">
+          <p class="home-features-stage-text">זה השלב שבו את לומדת להישאר יציבה, להוביל קהל, ולהגיב נכון לכל סיטואציה, מהרגע הראשון ועד הסיום</p>
+          <img data-placeholder="home-features-image-4" data-context="Professional Jewish woman in consultation with a client, discussing event details, representing business aspects of running a spiritual education business" width="600" height="400" src="" alt="פגישה עם לקוחה" class="home-features-stage-image">
+          <ul class="home-features-list">
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>ניהול בריף מקצועי עם מזמינת האירוע</span>
+            </li>
+            <li class="home-features-list-item">
+              <svg data-element-type="icon" data-icon-type="svg" class="home-features-list-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"></path>
+              </svg>
+              <span>בניית מחיר, סגירה ובניית אמון</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="home-features-stage">
+        <div class="home-features-stage-header">
+          <div class="home-features-stage-number">שלב 4</div>
+          <h3 class="home-features-stage-title">עומק, הלכה ומשמעות</h3>
+          <p class="home-features-stage-subtitle">כאן נבנה השורש הרוחני</p>
+        </div>
+        <div class="home-features-stage-content">
+          <div class="home-features-stage-intro">
+            <svg data-element-type="icon" data-icon-type="svg" class="home-features-stage-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 16.5c-3.03-1.13-5-4.47-5-8.41V6.3l5-2.19v14.39z" fill="currentColor"></path>
+            </svg>
+            <p class="home-features-stage-description">זה מה שנותן לערב עומק, שקט ומשמעות אמיתית.</p>
+          </div>
+          <img data-placeholder="home-features-image-5" data-context="Torah study scene with Jewish texts, candles, and spiritual atmosphere, representing the halachic and spiritual depth of Jewish education and mitzvah observance" width="600" height="400" src="" alt="לימוד עומק והלכה" class="home-features-stage-image">
+        </div>
+      </div>
+
+      <div class="home-features-stage">
+        <div class="home-features-stage-header">
+          <div class="home-features-stage-number">שלב 5</div>
+          <h3 class="home-features-stage-title">מרצון טוב לעשייה</h3>
+          <p class="home-features-stage-subtitle">שיווק, מכירה ויציאה לשטח</p>
+        </div>
+        <div class="home-features-stage-content">
+          <div class="home-features-stage-intro">
+            <svg data-element-type="icon" data-icon-type="svg" class="home-features-stage-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" fill="currentColor"></path>
+            </svg>
+            <p class="home-features-stage-description">כאן את לומדת להפוך את השליחות לדרך חיים</p>
+          </div>
+          <p class="home-features-stage-text">זה השלב שבו את לומדת להפוך רצון טוב לעשייה שמניבה תוצאות. שיווק, מכירה ויציאה לשטח מתוך בהירות וביטחון</p>
+          <img data-placeholder="home-features-image-6" data-context="Jewish woman entrepreneur working on marketing materials, laptop with social media content about challah separation events, representing business development and practical implementation" width="600" height="400" src="" alt="שיווק ופיתוח עסקי" class="home-features-stage-image">
+        </div>
+      </div>
+
+      <div class="home-features-stage">
+        <div class="home-features-stage-header">
+          <div class="home-features-stage-number">שלב 6</div>
+          <h3 class="home-features-stage-title">פרקטיקום מעשי</h3>
+          <p class="home-features-stage-subtitle">שיעורים שבהם את לא רק לומדת, אלא עושה</p>
+        </div>
+        <div class="home-features-stage-content">
+          <div class="home-features-stage-intro">
+            <svg data-element-type="icon" data-icon-type="svg" class="home-features-stage-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" fill="currentColor"></path>
+            </svg>
+            <p class="home-features-stage-description">שיעורי פרקטיקום מעשיים, שבהם את לא רק לומדת, אלא עושה:</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="home-testimonials-section" data-layout-spec="Home-testimonials">
+  <div class="home-testimonials-container">
+    <div class="home-testimonials-header">
+      <h2>מה אומרים על שרית</h2>
+      <p class="home-testimonials-subtitle">חוויות אמיתיות, רגעים בלתי נשכחים</p>
+    </div>
+
+    <div class="home-testimonials-grid">
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text">"הקורס של הרבנית שרית שינה לי את החיבור לחלה ולמצווה הזו. היא לא רק לימדה אותי את ההלכות, אלא העניקה לי חוויה רוחנית עמוקה שמלווה אותי כל שבת."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-1" data-context="Portrait photo of a smiling Jewish woman in her 30s-40s with head covering (tichel), warm lighting, professional headshot style, representing a satisfied student of Jewish women's education academy" width="60" height="60" src="" alt="תמונת פרופיל של רחל כהן" class="home-testimonials-avatar">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">רחל כהן</h3>
+              <p class="home-testimonials-location">ירושלים</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text">"כמה שנים חיפשתי מקום שבו אוכל ללמוד על הפרשת חלה בצורה מעמיקה ומרגשת. האקדמיה של שרית היא בדיוק המקום הזה. כל שיעור הוא מתנה."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-2" data-context="Portrait photo of a joyful Jewish woman in her 40s-50s with elegant head covering, natural smile, soft lighting, representing a grateful participant in Jewish spirituality courses" width="60" height="60" src="" alt="תמונת פרופיל של שרה לוי" class="home-testimonials-avatar">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">שרה לוי</h3>
+              <p class="home-testimonials-location">בני ברק</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text">"הרבנית שרית מצליחה להפוך כל פרט הלכתי למשמעותי ונוגע ללב. הלימוד איתה הוא לא רק ידע, אלא דרך חיים שלמה."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-3" data-context="Portrait photo of a serene Jewish woman in her 30s with beautiful head covering, warm expression, professional lighting, representing an inspired student of Jewish religious education" width="60" height="60" src="" alt="תמונת פרופיל של מרים גולדשטיין" class="home-testimonials-avatar">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">מרים גולדשטיין</h3>
+              <p class="home-testimonials-location">מודיעין עילית</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text">"בזכות האקדמיה הבנתי כמה עומק יש במצווה הזו. כל אישה צריכה לחוות את זה - זה משנה את כל תפיסת החיים היהודיים."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-4" data-context="Portrait photo of a radiant Jewish woman in her 20s-30s with modest head covering, bright smile, natural lighting, representing an enthusiastic participant in Jewish women's spiritual education" width="60" height="60" src="" alt="תמונת פרופיל של דבורה שוורץ" class="home-testimonials-avatar">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">דבורה שוורץ</h3>
+              <p class="home-testimonials-location">רמת גן</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text">"הגישה המיוחדת של הרבנית שרית, המשלבת הלכה ורוחניות, יצרה אצלי חיבור חדש לשורשים שלי. אני ממליצה בחום לכל אישה."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-5" data-context="Portrait photo of a content Jewish woman in her 40s with elegant tichel head covering, gentle smile, warm lighting, representing a satisfied graduate of Jewish spirituality academy" width="60" height="60" src="" alt="תמונת פרופיל של אסתר פרידמן" class="home-testimonials-avatar">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">אסתר פרידמן</h3>
+              <p class="home-testimonials-location">פתח תקווה</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="home-testimonials-card">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text">"לא ידעתי שאפשר ללמוד על הפרשת חלה בצורה כל כך מרתקת ומעשירה. שרית היא מורה מחוננת שיודעת לגעת בנשמה."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-6" data-context="Portrait photo of a happy Jewish woman in her 30s-40s with colorful head covering, bright expression, natural lighting, representing an engaged student of Jewish religious practice education" width="60" height="60" src="" alt="תמונת פרופיל של חנה ברגר" class="home-testimonials-avatar">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">חנה ברגר</h3>
+              <p class="home-testimonials-location">נתניה</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="home-testimonials-card home-testimonials-card-featured">
+        <div class="home-testimonials-quote-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="48" height="38" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32V18.6667C0 13.1111 1.33333 8.44444 4 4.66667C6.66667 0.888889 10.4444 0 15.3333 0V5.33333C12.8889 5.33333 10.8889 6.22222 9.33333 8C7.77778 9.77778 7 12 7 14.6667H17.3333V32H0ZM22.6667 32V18.6667C22.6667 13.1111 24 8.44444 26.6667 4.66667C29.3333 0.888889 33.1111 0 38 0V5.33333C35.5556 5.33333 33.5556 6.22222 32 8C30.4444 9.77778 29.6667 12 29.6667 14.6667H40V32H22.6667Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div class="home-testimonials-content">
+          <p class="home-testimonials-text home-testimonials-featured-text">"האקדמיה הראשונה מסוגה בישראל למצוות הפרשת חלה - וזה מורגש בכל פרט. הרבנית שרית מביאה עולם שלם של משמעות, קדושה וחיבור לכל אישה שמגיעה ללמוד. זו חוויה שמשנה חיים."</p>
+          <div class="home-testimonials-author">
+            <img data-placeholder="home-testimonials-image-7" data-context="Portrait photo of an inspiring Jewish woman in her 40s-50s with refined head covering, confident smile, professional lighting, representing a distinguished participant in Jewish women's spiritual leadership education" width="80" height="80" src="" alt="תמונת פרופיל של יהודית רוזנברג" class="home-testimonials-avatar home-testimonials-avatar-large">
+            <div class="home-testimonials-author-info">
+              <h3 class="home-testimonials-name">יהודית רוזנברג</h3>
+              <p class="home-testimonials-location">תל אביב</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="home-testimonials-decorative-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" class="home-testimonials-decorative-shape home-testimonials-shape-1" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="1" opacity="0.15"></circle>
+      <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="1" opacity="0.15"></circle>
+      <circle cx="100" cy="100" r="40" stroke="currentColor" stroke-width="1" opacity="0.15"></circle>
+    </svg>
+    <svg data-no-icon-edit="true" aria-hidden="true" class="home-testimonials-decorative-shape home-testimonials-shape-2" width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M75 15 L135 75 L75 135 L15 75 Z" stroke="currentColor" stroke-width="1" opacity="0.1" fill="none"></path>
+    </svg>
+  </div>
+</section>
+
+<section id="faq" class="home-faq-section" data-layout-spec="Home-faq">
+  <div class="home-faq-container">
+    <div class="home-faq-header">
+      <h2 class="home-faq-title">"אתן לא יוצאות לבד"</h2>
+      <p class="home-faq-subtitle">קהילה נשית</p>
+    </div>
+
+    <div class="home-faq-intro">
+      <p>עם סיום הקורס, את לא נשארת לבד עם הידע. את נכנסת למרחב חי, מקצועי ותומך שמלווה אותך לאורך הדרך.</p>
+    </div>
+
+    <div class="home-faq-accordion">
+      <div class="home-faq-item">
+        <button class="home-faq-question" aria-expanded="false">
+          <span class="home-faq-question-text">קהילת מנחות מקצועית</span>
+          <svg class="home-faq-icon" data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="home-faq-answer">
+          <div class="home-faq-answer-content">
+            <p>שמבינה את השטח, האתגרים והשליחות</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-faq-item">
+        <button class="home-faq-question" aria-expanded="false">
+          <span class="home-faq-question-text">קבוצת תמיכה פעילה</span>
+          <svg class="home-faq-icon" data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="home-faq-answer">
+          <div class="home-faq-answer-content">
+            <p>לשאלות, התלבטויות, שיתופים ולמידה מהניסיון האמיתי</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-faq-item">
+        <button class="home-faq-question" aria-expanded="false">
+          <span class="home-faq-question-text">ליווי מתמשך של הרבנית שרית</span>
+          <svg class="home-faq-icon" data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="home-faq-answer">
+          <div class="home-faq-answer-content">
+            <p>מהרבנית שרית גם לאחר סיום הקורס</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-faq-item">
+        <button class="home-faq-question" aria-expanded="false">
+          <span class="home-faq-question-text">מערכת הפניות חכמה</span>
+          <svg class="home-faq-icon" data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="home-faq-answer">
+          <div class="home-faq-answer-content">
+            <p>העברת פניות בין מנחות בהתאם לאזור, סגנון וזמינות</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-faq-item">
+        <button class="home-faq-question" aria-expanded="false">
+          <span class="home-faq-question-text">תמיכה בכל מצב</span>
+          <svg class="home-faq-icon" data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="home-faq-answer">
+          <div class="home-faq-answer-content">
+            <p>את אף פעם לא לבד מול לקוחה, התלבטות או סיטואציה מורכבת</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-faq-item">
+        <button class="home-faq-question" aria-expanded="false">
+          <span class="home-faq-question-text">למידה מהשטח</span>
+          <svg class="home-faq-icon" data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="home-faq-answer">
+          <div class="home-faq-answer-content">
+            <p>מהצלחות, אתגרים וסיטואציות אמת מהשטח</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-faq-footer">
+      <div class="home-faq-footer-content">
+        <p class="home-faq-emphasis">זו לא קבוצת וואטסאפ שקטה. וזו לא קהילה תאורטית.</p>
+        <p>זו קהילה שחיה את המקצוע. נושמת את השליחות. ומאפשרת גדילה אמיתית, רציפה ועמוקה.</p>
+        <p class="home-faq-final">הרבה אחרי שסיימת את הקורס.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="home-about-section" data-layout-spec="Home-about">
+  <div class="home-about-container">
+    <div class="home-about-content">
+      <div class="home-about-text">
+        <h2 class="home-about-heading">שמי שרית גז</h2>
+        <h3 class="home-about-subheading">החזון שלי</h3>
+        <div class="home-about-story">
+          <p>ליווי של מאות נשים בתהליכים | שליחות מתוך חוויה אישית | המסע האישי שלי החל לפני כ־30 שנה, לאחר השירות הצבאי בחיל האוויר. מתוך חיפוש, חקירת אמת, משמעות וחיבור, עברתי תהליך פנימי שקט, עמוק והדרגתי.</p>
+          <p>גיליתי שבלתי אפשרי לחיות חיים ללא משמעות. בעקבות זאת התחלתי לשמור מצוות, ומאז אני עוסקת בקירוב רחוקים.</p>
+          <p>ערבי הפרשת חלה נולדו מתוך משבר אישי עמוק שחוויתי - לידה שקטה. בחודש התשיעי, בחדר הלידה, הייתי בסכנת חיים.</p>
+          <p>בחרתי להוציא אנרגיה על ריפוי וצמיחה, ולא על דיכאון, והבחירה הזו הפכה לדרך חיים ולשליחות שמובילה אותי מאז.</p>
+          <p>באישיותי אני אוהבת לפזר חום ואהבה, לשתף וללמד מתוך חוויות אישיות, מתוך חיבור אנושי, פתיחות ונוכחות.</p>
+          <p>במהלך השנים למדתי תורה, טיפול רגשי, CBT, NLP ושיטות נוספות. בנוסף, השתתפתי במשך 15 שנה בשיעורי מודעות אצל מורת דרכי.</p>
+          <p>נשואה לרמי גז, יועץ נישואין ומרצה בארגון הידברות, ואנחנו הורים לשישה ילדים ולקורבט הכלבה המקסימה.</p>
+          <p>להעביר הלאה את הידע, הכלים והבשלות שצברתי, ולהכשיר דור חדש של מנחות ערבי הפרשת חלה, שיודעות לא רק להנחות ערב, אלא להוביל נשים, לפתוח להן את הלב לאבינו שבשמיים, לשנות סטיגמות על הדת, ליצור אהבה ואחדות, לרגש, לשמח בעוצמה ולהשאיר טעם לעוד.</p>
+          <p>ההכשרה נולדה מתוך הבנה ששליחות אמיתית זקוקה לכלים מקצועיים, אחריות רגשית וסטנדרט גבוה - ולא רק רצון טוב.</p>
+        </div>
+      </div>
+      <div class="home-about-image-wrapper">
+        <img data-placeholder="home-about-image-1" data-context="Professional portrait of Rebbetzin Sarit Gaz, a warm and compassionate Jewish educator and spiritual leader, smiling warmly at the camera. She should appear approachable, wise, and nurturing, wearing modest elegant clothing. Soft natural lighting, warm tones, professional headshot style. Background should be soft and blurred, creating an intimate and trustworthy atmosphere. Image should convey warmth, wisdom, spiritual depth, and maternal energy." width="600" height="700" src="" alt="הרבנית שרית גז - מייסדת אקדמיית מחוברות לחיים" class="home-about-image">
+        <div class="home-about-image-decoration" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="home-contact-section" data-layout-spec="Home-contact">
+  <div class="home-contact-container">
+    <div class="home-contact-grid">
+      <!-- Contact Form -->
+      <div class="home-contact-form-wrapper">
+        <div class="home-contact-form-header">
+          <h2>מעוניינת לשמוע עוד?</h2>
+          <p>השאירי פרטים ונחזור אלייך לשיחת היכרות | שדות עם * הם שדות חובה</p>
+        </div>
+        <form class="contact-form">
+          <div class="home-contact-form-row">
+            <div class="home-contact-form-field">
+              <label for="contact-name">שם מלא *</label>
+              <input type="text" id="contact-name" name="name" required="">
+            </div>
+            <div class="home-contact-form-field">
+              <label for="contact-phone">טלפון *</label>
+              <input type="tel" id="contact-phone" name="phone" required="">
+            </div>
+          </div>
+          <div class="home-contact-form-field">
+            <label for="contact-email">דוא"ל *</label>
+            <input type="email" id="contact-email" name="email" required="">
+          </div>
+          <div class="home-contact-form-field">
+            <label for="contact-message">הודעה</label>
+            <textarea id="contact-message" name="message" rows="5"></textarea>
+          </div>
+          <button type="submit" class="home-contact-submit-btn">שליחה</button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="home-contact-info-wrapper">
+        <div class="home-contact-info-card">
+          <div class="home-contact-info-item">
+            <div class="home-contact-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8L10.89 13.26C11.23 13.47 11.61 13.59 12 13.59C12.39 13.59 12.77 13.47 13.11 13.26L21 8M5 19H19C19.53 19 20.04 18.79 20.41 18.41C20.79 18.04 21 17.53 21 17V7C21 6.47 20.79 5.96 20.41 5.59C20.04 5.21 19.53 5 19 5H5C4.47 5 3.96 5.21 3.59 5.59C3.21 5.96 3 6.47 3 7V17C3 17.53 3.21 18.04 3.59 18.41C3.96 18.79 4.47 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div class="home-contact-info-content">
+              <h3>דוא"ל</h3>
+              <a href="mailto:[business_email]">[business_email]</a>
+            </div>
+          </div>
+
+          <div class="home-contact-info-item">
+            <div class="home-contact-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92V19.92C22 20.49 21.54 20.97 20.97 21C20.72 21.01 20.46 21.02 20.21 21.02C10.2 21.02 2 12.82 2 2.81C2 2.56 2.01 2.3 2.02 2.05C2.05 1.48 2.53 1.02 3.1 1.02H6.1C6.65 1.02 7.11 1.46 7.15 2.01C7.18 2.49 7.24 2.96 7.34 3.42C7.48 4.03 7.29 4.67 6.84 5.11L5.28 6.67C6.77 9.57 9.45 12.25 12.35 13.74L13.91 12.18C14.35 11.73 14.99 11.54 15.6 11.68C16.06 11.78 16.53 11.84 17.01 11.87C17.56 11.91 18 12.37 18 12.92V15.92C18 16.47 17.54 16.91 16.99 16.94C16.74 16.95 16.49 16.96 16.24 16.96" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div class="home-contact-info-content">
+              <h3>טלפון</h3>
+              <a href="tel:[business_phone]">[business_phone]</a>
+            </div>
+          </div>
+
+          <div class="home-contact-info-item">
+            <div class="home-contact-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61 3.95 5.32 5.64 3.64C7.32 1.95 9.61 1 12 1C14.39 1 16.68 1.95 18.36 3.64C20.05 5.32 21 7.61 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M12 13C13.66 13 15 11.66 15 10C15 8.34 13.66 7 12 7C10.34 7 9 8.34 9 10C9 11.66 10.34 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div class="home-contact-info-content">
+              <h3>כתובת</h3>
+              <p>[business_address]</p>
+              <a href="https://maps.google.com/?q=[business_address]" target="_blank" class="home-contact-map-link">צפייה במפה</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-contact-social-card">
+          <h3>עקבו אחרינו</h3>
+          <div class="home-contact-social-links">
+            <a href="https://facebook.com/[facebook_handle]" target="_blank" aria-label="Facebook">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24V15.56H7.08V12.07H10.13V9.41C10.13 6.39 11.92 4.72 14.66 4.72C15.97 4.72 17.34 4.95 17.34 4.95V7.92H15.83C14.33 7.92 13.87 8.85 13.87 9.8V12.07H17.2L16.67 15.56H13.87V24C19.61 23.1 24 18.1 24 12.07Z"></path>
+              </svg>
+            </a>
+            <a href="https://instagram.com/[instagram_handle]" target="_blank" aria-label="Instagram">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.16C15.2 2.16 15.58 2.17 16.85 2.23C20.33 2.39 21.62 3.7 21.78 7.15C21.84 8.42 21.85 8.8 21.85 12C21.85 15.2 21.84 15.58 21.78 16.85C21.62 20.29 20.34 21.61 16.85 21.77C15.58 21.83 15.2 21.84 12 21.84C8.8 21.84 8.42 21.83 7.15 21.77C3.66 21.61 2.39 20.29 2.23 16.85C2.17 15.58 2.16 15.2 2.16 12C2.16 8.8 2.17 8.42 2.23 7.15C2.39 3.7 3.67 2.39 7.15 2.23C8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33 0.01 7.05 0.07C2.7 0.27 0.27 2.69 0.07 7.05C0.01 8.33 0 8.74 0 12C0 15.26 0.01 15.67 0.07 16.95C0.27 21.3 2.69 23.73 7.05 23.93C8.33 23.99 8.74 24 12 24C15.26 24 15.67 23.99 16.95 23.93C21.29 23.73 23.73 21.31 23.93 16.95C23.99 15.67 24 15.26 24 12C24 8.74 23.99 8.33 23.93 7.05C23.74 2.71 21.31 0.27 16.95 0.07C15.67 0.01 15.26 0 12 0ZM12 5.84C8.6 5.84 5.84 8.6 5.84 12C5.84 15.4 8.6 18.16 12 18.16C15.4 18.16 18.16 15.4 18.16 12C18.16 8.6 15.4 5.84 12 5.84ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16ZM18.41 4.15C17.54 4.15 16.84 4.85 16.84 5.72C16.84 6.59 17.54 7.29 18.41 7.29C19.28 7.29 19.98 6.59 19.98 5.72C19.98 4.85 19.28 4.15 18.41 4.15Z"></path>
+              </svg>
+            </a>
+            <a href="https://wa.me/[whatsapp_handle]" target="_blank" aria-label="WhatsApp">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.47 14.38C17.24 14.26 16.13 13.72 15.91 13.64C15.69 13.56 15.53 13.52 15.37 13.76C15.21 14 14.79 14.5 14.65 14.66C14.51 14.82 14.37 14.84 14.14 14.72C13.91 14.6 13.16 14.36 12.27 13.57C11.58 12.96 11.11 12.21 10.97 11.97C10.83 11.73 10.95 11.6 11.07 11.48C11.18 11.37 11.3 11.19 11.42 11.05C11.54 10.91 11.58 10.81 11.66 10.65C11.74 10.49 11.7 10.35 11.64 10.23C11.58 10.11 11.11 9 10.91 8.52C10.72 8.06 10.52 8.12 10.38 8.11H9.93C9.77 8.11 9.52 8.17 9.3 8.41C9.08 8.65 8.5 9.19 8.5 10.3C8.5 11.41 9.32 12.48 9.44 12.64C9.56 12.8 11.11 15.26 13.57 16.22C14.16 16.47 14.62 16.62 14.98 16.73C15.57 16.91 16.11 16.88 16.54 16.82C17.02 16.75 17.91 16.28 18.11 15.76C18.31 15.24 18.31 14.8 18.25 14.7C18.19 14.6 18.03 14.54 17.8 14.42M12.05 21.79H12.04C10.26 21.79 8.52 21.3 7.01 20.38L6.66 20.17L2.87 21.17L3.89 17.48L3.65 17.11C2.64 15.54 2.11 13.72 2.11 11.84C2.11 6.48 6.48 2.11 11.84 2.11C14.43 2.11 16.85 3.11 18.68 4.94C20.51 6.77 21.51 9.19 21.51 11.78C21.51 17.14 17.14 21.51 11.78 21.51M20.52 3.48C18.37 1.33 15.5 0.11 12.45 0.11C6.34 0.11 1.37 5.08 1.37 11.19C1.37 13.26 1.93 15.28 2.99 17.04L1.27 22.73L7.13 21.04C8.82 22.01 10.72 22.52 12.66 22.52H12.67C18.78 22.52 23.75 17.55 23.75 11.44C23.75 8.39 22.53 5.52 20.38 3.37"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="home-contact-map-wrapper">
+          <img data-placeholder="contact-map" data-context="Google Maps embedded view showing the location of the Rebbetzin Sarit Gaz academy in Israel, with surrounding streets and landmarks visible" width="600" height="400" src="" alt="מפת מיקום האקדמיה">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-column footer-about">
+        <img src="/assets/logo.webp" alt="מחוברות לחיים של הרבנית שרית גז" class="logo" />
+        <p class="footer-description">מחוברות לחיים - מסע רוחני של צמיחה והתפתחות אישית בהדרכת הרבנית שרית גז</p>
+      </div>
+      <div class="footer-column footer-links">
+        <h3 class="footer-heading">קישורים מהירים</h3>
+        <ul class="footer-nav">
+          <li><a href="#content">תוכן</a></li>
+          <li><a href="#features">מאפיינים</a></li>
+          <li><a href="#testimonials">המלצות</a></li>
+          <li><a href="#faq">שאלות נפוצות</a></li>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="#contact">צור קשר</a></li>
+        </ul>
+      </div>
+      <div class="footer-column footer-contact">
+        <h3 class="footer-heading">יצירת קשר</h3>
+        <ul class="contact-list">
+          <li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:[business_email]">[business_email]</a>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <a href="tel:[business_phone]">[business_phone]</a>
+          </li>
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>[business_address]</span>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-column footer-social">
+        <h3 class="footer-heading">עקבו אחרינו</h3>
+        <div class="social-links">
+          <a href="[facebook_handle]" aria-label="Facebook" target="_blank" rel="noopener">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="[instagram_handle]" aria-label="Instagram" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="[whatsapp_handle]" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <p>© 2026 מחוברות לחיים של הרבנית שרית גז. כל הזכויות שמורות.</p>
+        </div>
+        <div class="footer-legal">
+          <a href="/privacy">מדיניות פרטיות</a>
+          <span class="separator">|</span>
+          <a href="/terms">תנאי שימוש</a>
+          <span class="separator">|</span>
+          <a href="/accessibility">נגישות</a>
+          <span class="separator">|</span>
+          <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-mobile-lang-menu-script">
+    (function() {
+      function initMobileLangMenu() {
+        if (window.innerWidth > 768) {
+          var existingMenu = document.querySelector('.mobile-lang-menu');
+          if (existingMenu) existingMenu.remove();
+          return;
+        }
+        if (document.querySelector('.mobile-lang-menu')) return;
+        var switcher = document.querySelector('.lang-switcher');
+        if (!switcher) return;
+        var dropdown = switcher.querySelector('.lang-switcher-dropdown');
+        if (!dropdown) return;
+        var options = dropdown.querySelectorAll('.lang-option');
+        if (options.length === 0) return;
+        var navMenu = document.getElementById('navMenu') || document.querySelector('.nav-menu') || document.querySelector('nav ul');
+        if (!navMenu) return;
+        var currentLang = document.documentElement.lang || 'en';
+        var langConfigs = {
+          he: {name:'עברית',flag:'https://api.iconify.design/circle-flags/il.svg'},
+          en: {name:'English',flag:'https://api.iconify.design/circle-flags/us.svg'},
+          ar: {name:'العربية',flag:'https://api.iconify.design/circle-flags/sa.svg'},
+          fr: {name:'Français',flag:'https://api.iconify.design/circle-flags/fr.svg'},
+          es: {name:'Español',flag:'https://api.iconify.design/circle-flags/es.svg'},
+          de: {name:'Deutsch',flag:'https://api.iconify.design/circle-flags/de.svg'},
+          ru: {name:'Русский',flag:'https://api.iconify.design/circle-flags/ru.svg'},
+          zh: {name:'中文',flag:'https://api.iconify.design/circle-flags/cn.svg'},
+          ja: {name:'日本語',flag:'https://api.iconify.design/circle-flags/jp.svg'},
+          pt: {name:'Português',flag:'https://api.iconify.design/circle-flags/br.svg'},
+          it: {name:'Italiano',flag:'https://api.iconify.design/circle-flags/it.svg'},
+          ko: {name:'한국어',flag:'https://api.iconify.design/circle-flags/kr.svg'}
+        };
+        var container = document.createElement('div');
+        container.className = 'mobile-lang-menu';
+        var currentConfig = langConfigs[currentLang] || {name:currentLang,flag:''};
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'mobile-lang-toggle';
+        toggleBtn.type = 'button';
+        var currentFlagHtml = currentConfig.flag ? '<img src="' + currentConfig.flag + '" width="20" height="20" alt="" style="border-radius:50%;margin-right:8px;margin-left:8px;">' : '';
+        toggleBtn.innerHTML = currentFlagHtml + currentConfig.name;
+        container.appendChild(toggleBtn);
+        var optionsDiv = document.createElement('div');
+        optionsDiv.className = 'mobile-lang-options';
+        var currentLink = document.createElement('a');
+        currentLink.className = 'mobile-lang-option active';
+        currentLink.href = '#';
+        currentLink.innerHTML = currentFlagHtml + currentConfig.name;
+        optionsDiv.appendChild(currentLink);
+        options.forEach(function(opt) {
+          var link = document.createElement('a');
+          link.className = 'mobile-lang-option';
+          link.href = opt.getAttribute('href');
+          link.innerHTML = opt.innerHTML;
+          optionsDiv.appendChild(link);
+        });
+        container.appendChild(optionsDiv);
+        navMenu.appendChild(container);
+        toggleBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleBtn.classList.toggle('expanded');
+          optionsDiv.classList.toggle('expanded');
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileLangMenu); }
+      else { initMobileLangMenu(); }
+      window.addEventListener('resize', function() { clearTimeout(window._mlrt); window._mlrt = setTimeout(initMobileLangMenu, 250); });
+    })();
+    </script>
+</body>
+</html>
